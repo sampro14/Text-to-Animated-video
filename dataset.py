@@ -18,8 +18,8 @@ import json
 from pathlib import Path
 import random
 
-data_dir = "./archive/img_align_celeba" # Your dataset location
-label_file = "./archive/text_labels_2.json" # Your dataset location
+data_dir = "./archive/img_align
+label_file = "./archive/text_labels_2.json" 
 
 device = torch.device("mps")
 
@@ -55,9 +55,9 @@ class AugmentedImageFolder(ImageFolder):
             text_labels = [t for t in text_labels if len(t.split()) <= 7]
             target = random.choice(text_labels)
         if self.transform is not None:
-            # Convert PIL Image to numpy array for Albumentations
+            
             image_np = A.Compose([A.ToFloat(max_value=255)])(image=np.array(image))['image']
-            # Apply Albumentations transform
+            
             augmented = self.transform(image=image_np)
             image = augmented['image']
 
@@ -103,7 +103,7 @@ def display_image(img):
             img = np.transpose(img, [1, 2, 0])
         assert img.shape[-1] in (3, 1)
     plt.imshow(img, cmap="gray")
-    plt.axis('off')  # Turn off axis labels
+    plt.axis('off')  
     plt.show()
 
 
@@ -261,20 +261,20 @@ import os
 
 def create_image_grid_with_annots(images, annotations, rows, cols):
     images = [img.resize((128, 128)) for img in images]
-    # Check if the number of images and annotations match
+    
     if len(images) != len(annotations):
         raise ValueError("Number of images and annotations must be the same.")
 
-    # Set the size of each grid cell
+    
     cell_width = max(img.width for img in images)
-    cell_height = max(img.height for img in images) + 40  # Additional space for annotations
+    cell_height = max(img.height for img in images) + 40  
 
-    # Create a new image for the grid
+    
     grid_width = cell_width * cols
     grid_height = cell_height * rows
     grid_image = Image.new("RGB", (grid_width, grid_height), color="white")
 
-    # Initialize the drawing context
+    
     draw = ImageDraw.Draw(grid_image)
 
     # Set the font for annotations
