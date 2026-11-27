@@ -1,0 +1,14 @@
+# Unpinned: this code dates from 2024 and was not re-tested against pinned versions.
+torch
+torchvision
+diffusers
+transformers
+accelerate
+albumentations
+flask
+pillow
+matplotlib
+pandas
+numpy
+tqdm
+tensorboard

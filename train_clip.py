@@ -19,7 +19,7 @@ VAE model (see vae.py).
 '''
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
-device = torch.device("mps")
+device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
 class TextEncoder(nn.Module):
     def __init__(self, img_size=256, out_size=1280):

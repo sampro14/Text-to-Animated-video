@@ -18,10 +18,10 @@ import json
 from pathlib import Path
 import random
 
-data_dir = "./archive/img_align
+data_dir = "./archive/img_align_celeba"
 label_file = "./archive/text_labels_2.json" 
 
-device = torch.device("mps")
+device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
 def get_transform(img_size, use_albumenations):
     if use_albumenations:

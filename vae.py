@@ -17,7 +17,7 @@ from discriminator import Discriminator, train_discriminator
 from torch.utils.tensorboard import SummaryWriter
 
 # Set device (GPU if available, else CPU)
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 class VAE(nn.Module):
     def __init__(self, output_channels, img_size, num_channels, num_layers, latent_variable_channels, num_layers_per_block, final_act):
         super(VAE, self).__init__()
