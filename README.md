@@ -26,9 +26,9 @@ flowchart LR
 | File | Purpose |
 |---|---|
 | `vae.py` | VAE model and training |
-| `descriminator.py` | Discriminator for the adversarial loss |
-| `clip.py` | Text encoder and contrastive training |
-| `condition_ldm.py` | `TextToImage` model, UNet training and inference |
+| `discriminator.py` | Discriminator for the adversarial loss |
+| `train_clip.py` | Text encoder and contrastive training |
+| `conditional_ldm.py` | `TextToImage` model, UNet training and inference |
 | `dataset.py` | Data loading, augmentation and perceptual loss |
 | `api.py` | Flask job API |
 
@@ -39,10 +39,17 @@ flowchart LR
 | `POST /text_to_image` | Starts a job from `prompt`, with optional `n_images`, `n_inf_steps` and `stream_freq`; returns a `job_id` |
 | `GET /jobs/<job_id>/` | Returns the latest images and whether the job has finished |
 
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+Each script picks the device itself: CUDA if available, then Apple Silicon (`mps`), then CPU.
+
 ## Current limitations
 
-This is a code snapshot, and it won't run as cloned:
+The module-name and syntax errors are fixed, but you still need to supply the data and weights:
 
-- **Module names:** the code imports `conditional_ldm`, `train_clip` and `discriminator`, but the files are named `condition_ldm.py`, `clip.py` and `descriminator.py`.
-- **Missing files:** model checkpoints, the dataset and a dependency list aren't included. `dataset.py` expects CelebA images under `./archive/`.
-- **Hardware:** `api.py` is hardcoded to Apple Silicon (`mps`).
+- **Not included:** model checkpoints and the dataset. `dataset.py` expects CelebA images under `./archive/img_align_celeba` and text labels in `./archive/text_labels_2.json`.
+- **Unpinned dependencies:** `requirements.txt` lists the packages the code imports, without versions.

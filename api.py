@@ -12,7 +12,7 @@ import shutil
 from PIL import Image
 import numpy as np
 
-device = torch.device("mps")
+device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 diffusion_model_path = 'models/cldm_models/unet/39600' # Your path here
 
 default_inf_steps = 500
